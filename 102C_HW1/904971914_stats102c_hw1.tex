@@ -1,0 +1,285 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={904971914\_stats102c\_hw1},
+  pdfauthor={Xiaoshu Luo 904971914},
+  pdfborder={0 0 0},
+  breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-2}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{904971914\_stats102c\_hw1}
+\author{Xiaoshu Luo 904971914}
+\date{}
+
+\begin{document}
+\maketitle
+
+\hypertarget{question-1}{%
+\subsection{Question 1}\label{question-1}}
+
+Since X and Y are independent, X\^{}2 and Y\^{}2 are also independent:
+
+\[
+\begin{eqnarray}
+Var(XY) 
+& = & E((XY)^2)-E^2(XY)\\
+& = & E(X^2)\times E(Y^2)-E(XY)\times E(XY)\\
+& = &  (E^2(X)+Var(X)) \times (E^2(Y)+Var(Y)) - E^2(X)E^2(Y)\\
+& = &  E^2(X)\times Var(Y) + E^2(Y)\times Var(X) + Var(X) \times Var(Y) 
+\end{eqnarray}
+\]
+
+\hypertarget{question-2}{%
+\subsection{Question 2}\label{question-2}}
+
+{[} \begin{eqnarray}
+
+X & \sim & Geo(0.6)\\
+P(X \leq k) & \approx & 0.9\\
+F_X(k)& \approx & 0.9\\
+1-(1-0.6)^{k+1}& \approx & 0.9\\
+k &\approx &  1.5\\
+k &=& 1\Rightarrow P(X \leq k)=0.84\\
+k&=&2\Rightarrow P(X \leq k)=0.93\\
+k &=& 2
+
+
+\end{eqnarray} {]}
+
+\hypertarget{question-3}{%
+\subsection{Question 3}\label{question-3}}
+
+\textbf{(a)} Let T be the time between successive calls. {[}
+\begin{eqnarray}
+
+T &\sim& exp(\lambda),\lambda=6\\
+E(T) &=& 1/\lambda = 1/6
+ 
+\end{eqnarray} {]}
+
+The average times is 1/6 minute.
+
+\textbf{(b)} {[} \begin{eqnarray}
+N_1 &\sim& Poi(\lambda),\lambda=6\\
+P(N_1 = 5) &=& \frac{6^5e^{-6}}{5!} \\
+&=& 0.1606
+
+
+\end{eqnarray} {]}
+
+\textbf{(c)} {[} \begin{eqnarray}
+P(N_1 < 5) &=& \sum_{k=0}^{4}\frac{6^ke^{-6}}{k!} \\
+P(N_1 < 5) &=& 0.2851
+
+\end{eqnarray} {]}
+
+\textbf{(d))} Let T be the waiting time in seconds. {[} \begin{eqnarray}
+T&\sim& poi(\lambda'),\lambda'=6/60=0.1\\
+P(T \leq 5) &=& F_T(5)=1-{e^{-0.1 * 5}} \\
+&=&0.3935
+
+\end{eqnarray} {]}
+
+\textbf{(e)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{904971914}\NormalTok{)}
+\NormalTok{x<-}\KeywordTok{rexp}\NormalTok{(}\DataTypeTok{n=}\DecValTok{1000}\NormalTok{,}\DataTypeTok{rate =}\FloatTok{0.1}\NormalTok{)}
+\NormalTok{q3e<-}\KeywordTok{ecdf}\NormalTok{(x)}
+
+\NormalTok{z <-}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{80}\NormalTok{,}\FloatTok{0.1}\NormalTok{)}
+\NormalTok{zy <-}\KeywordTok{q3e}\NormalTok{(z)}
+\NormalTok{zci<-}\KeywordTok{sqrt}\NormalTok{((}\KeywordTok{q3e}\NormalTok{(zy)}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\KeywordTok{q3e}\NormalTok{(zy)))}\OperatorTok{/}\DecValTok{1000}\NormalTok{)}\OperatorTok{*}\FloatTok{1.96} 
+
+\KeywordTok{plot}\NormalTok{(}\DataTypeTok{x=}\NormalTok{z,}\DataTypeTok{y=}\NormalTok{zy, }\DataTypeTok{ylab =} \KeywordTok{expression}\NormalTok{(}\KeywordTok{P}\NormalTok{(X }\OperatorTok{<=}\StringTok{ }\NormalTok{x)), }\DataTypeTok{main =} \StringTok{"EDF with confidence interval"}\NormalTok{,}\DataTypeTok{type=}\StringTok{'l'}\NormalTok{,}\DataTypeTok{las =} \DecValTok{1}\NormalTok{)}
+
+\NormalTok{U<-}\StringTok{ }\NormalTok{zy}\OperatorTok{+}\NormalTok{zci}
+\NormalTok{L<-zy}\OperatorTok{-}\NormalTok{zci}
+\KeywordTok{lines}\NormalTok{(z,U,}\DataTypeTok{col=}\StringTok{'red'}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(z,L,}\DataTypeTok{col=}\StringTok{'red'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{904971914_stats102c_hw1_files/figure-latex/q3e-1.pdf}
+The red lines are the confidence intervals.
+
+\hypertarget{question-4}{%
+\subsection{Question 4}\label{question-4}}
+
+\textbf{(a)} \[
+\begin{eqnarray}
+Y&=&F^{-1}(u)\\
+P(Y \leq x)&=& P(F^{-1}(u) \leq  x)\\
+&=& P(u \leq F(x))\\
+&=& F_U(F(x)) \\
+&=& \int _0 ^ {F(x)} 1 du \\
+&=& F_{X}(x) 
+\end{eqnarray}
+\]
+
+\textbf{(b)} {[} \begin{eqnarray}
+Let \space \space Y&=&F(x),0 \leq Y\leq 1  \\
+P(Y \leq y)&=&P(F(x) \leq y)\\
+&=&P(X \leq F^{-1}(y))\\
+&=& F(F^{-1}(y))\\
+&=& y, \space y \in[0,1]
+
+\end{eqnarray} {]} Therefore, Y has the same CDF as U \textasciitilde{}
+{[}0,1{]},so F(x) \textasciitilde{} {[}0,1{]}.
+
+\hypertarget{question-5}{%
+\subsection{Question 5}\label{question-5}}
+
+\textbf{(a)} {[} \begin{eqnarray}
+F(x) &=&\int_{-\infty}^xf(t)dt\\
+&=& \int_{\eta}^x\lambda e^{-\lambda(t-\eta)}dt\\
+&=& - e^{\lambda\eta} (e^{-\lambda x}-e^{-\lambda \eta})\\
+&=& 1-e^{\lambda(\eta-x)}
+
+\end{eqnarray} {]}
+
+\textbf{(b)} {[} \begin{eqnarray}
+F(x) &=& u\\
+1-e^{\lambda(\eta - x)} &=& u \\
+\lambda\eta - \lambda x &=& log(1-u)\\
+x = F^{-1}(u) &=& \eta - \frac {log(1-u)} \lambda\\
+
+
+\end{eqnarray} {]}
+
+\textbf{(c)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{q5c <-}\ControlFlowTok{function}\NormalTok{(lambda,eta,n)\{}
+\CommentTok{#This function generates random numbers from the two-parameter exponential distribution.}
+\CommentTok{#lambda and eta are parameters and n specifies how many numbers to generate.}
+\CommentTok{#The function gives a number or a vector of numbers generated from the distribution. }
+\NormalTok{  x <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(n)}
+\NormalTok{  y <-}\StringTok{ }\NormalTok{eta}\OperatorTok{-}\NormalTok{(}\KeywordTok{log}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{x)}\OperatorTok{/}\NormalTok{lambda)}
+\NormalTok{  y}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{(d)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{q5d <-}\KeywordTok{q5c}\NormalTok{(}\DataTypeTok{lambda=}\DecValTok{4}\NormalTok{,}\DataTypeTok{eta=}\DecValTok{1}\NormalTok{,}\DataTypeTok{n=}\DecValTok{10000}\NormalTok{)}
+\KeywordTok{hist}\NormalTok{(q5d,}\DataTypeTok{prob=}\NormalTok{T)}
+\NormalTok{y<-}\KeywordTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{,}\FloatTok{0.01}\NormalTok{)}
+\KeywordTok{lines}\NormalTok{(y,}\DecValTok{4}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(}\OperatorTok{-}\DecValTok{4}\OperatorTok{*}\NormalTok{(y}\DecValTok{-1}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{904971914_stats102c_hw1_files/figure-latex/q5d-1.pdf}
+
+\textbf{(e)} The sample quartiles is very similar to the theoretical
+exponential quartiles.
+
+\end{document}

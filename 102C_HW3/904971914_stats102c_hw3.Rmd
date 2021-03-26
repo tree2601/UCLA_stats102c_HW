@@ -1,0 +1,238 @@
+---
+title: "904971914_stats102c_hw3"
+author: "Xiaoshu Luo"
+date: "2020/11/9"
+output: html_document
+---
+
+
+## QUestion 1
+
+**(a)**
+\[
+\begin{eqnarray}
+\begin{pmatrix}
+a_{11} & 0 & 0 &0\\
+a_{21} & a_{22} & 0 &0\\
+a_{31} & a_{32} & a_{33} &0\\
+a_{41} & a_{42} & a_{43} &a_{44}
+\end{pmatrix} *
+\begin{pmatrix}
+a_{11} & a_{21} & a_{31} &a_{41}\\
+0 & a_{22} & a_{32} &a_{42}\\
+0 & 0 & a_{33} &a_{43}\\
+0 & 0 & 0 &a_{44}
+\end{pmatrix} 
+&=&
+\begin{pmatrix}
+3 & 0 & 2 &2\\
+0 & 1 & 1 &0\\
+2 & 1 & 9 &-2\\
+2 & 0 & -2 &4
+\end{pmatrix}\\ 
+
+\end{eqnarray}
+\]
+
+
+
+
+```{r}
+library(MASS)
+set.seed(904971914)
+mean1a<-c(4,3,2,1)
+sigma<-matrix(c(3,0,2,2,0,1,1,0,2,1,9,-2,2,0,-2,4),4,4)
+
+Z<-mvrnorm(1000,mu=c(0,0,0,0),diag(4))
+A<-chol(sigma)
+
+q1a<-matrix(mean1a,1000,4,byrow=T)+Z %*% A
+head(q1a)
+```
+
+
+**(b)**  
+```{r}
+pairs(q1a)
+
+
+
+```
+Yes, the plots are consistent with the covariance matrix.  
+
+## Question 2
+**(a)**
+\[
+\begin{eqnarray}
+X&=& \mu +Z*A\\
+Z&=&(X-\mu)*A^{-1}
+
+\end{eqnarray}
+\]
+
+**(b)**
+```{r}
+q1b<-function(m,mean_single,sigma){
+  A<-chol(sigma)
+  A_inverse<-solve(A)
+  mean_expanded<-matrix(mean_single,nrow=nrow(m),ncol=ncol(m),byrow=T)
+  return ((m-mean_expanded) %*% A_inverse)
+  
+}
+
+
+```
+
+
+**(c)**  
+```{r}
+q1c<-q1b(q1a,c(4,3,2,1),sigma)
+mean(q1c[,1])
+mean(q1c[,2])
+mean(q1c[,3])
+mean(q1c[,4])
+cov(q1c)
+
+```
+
+The mean is very close to zero, and the covariance matrix is very close to the identity matrix. 
+
+
+## Question 3 
+**(a)**
+\[
+\begin{eqnarray}
+E(\hat{\theta}) &=& E(\frac 1m\sum_{i=1}^m(g(X_i))\\
+&=& \frac 1mE(g(X_1)+g(X_2)+...+g(X_m))\\
+&=&\frac 1m (E(g(X_1)+...+E(g(X_m)))\\
+&=& \frac1m *m*\theta\\
+&=&\theta
+
+
+\end{eqnarray}
+\]
+
+
+
+**(b)**
+\[
+\begin{eqnarray}
+Var(\hat{\theta}) &=& Var(\frac 1m\sum_{i=1}^m(g(X_i))\\
+&=& \frac 1{m^2}Var(g(X_1)+g(X_2)+...+g(X_m))\\
+&=&\frac 1{m^2} (Var(g(X_1))+...+Var(g(X_m)))\\
+&=& \frac1{m^2} *m*Var(g(X))\\
+&=&\frac {Var(g(X))}m\\
+To \space estimate \space Var(g(X)):\\
+
+estimater&=& \frac {\sum_{i=1}^m (g(X_i)-\bar{g(X)})^2 }{m^2}
+\end{eqnarray}
+\]
+
+**(c)**
+\[
+\begin{eqnarray}
+Var(\hat{\theta}) &=&  \frac {\sum_{i=1}^m (g(X_i)-\bar{g(X)})^2 }{m^2}\\
+SD(\hat{\theta})&=& \sqrt{Var(\hat{\theta})}\\
+By \space CLT, \frac  {\hat{\theta}-\theta}{SD(\hat{\theta})} &\sim& N(0,1) \\
+\hat{\theta}&\pm&1.96SD(\hat{\theta}) \space for \space 95\% \space CI
+\end{eqnarray}
+\]
+
+
+
+
+**(d)**
+g(x)=x^2, f(x) is exp(0.5). 
+```{r}
+q3d<-function(m,rate){
+  x<-rexp(m,rate=rate)
+  g<-x^2
+  return(mean(g))
+  
+}
+
+
+
+```
+
+**(e)**
+E(X^2)=E^2(X)+Var(X)=2*2+4=8. So 8 is the true value. 
+```{r}
+set.seed(904971914)
+collect<-c()
+for(i in 1:1000){
+ x<-rexp(1000,0.5)
+ g<-x^2
+ theta<-sum(g)/1000
+ var_theta<-sum((g-mean(g))^2)/(1000^2)
+ sd_theta<-sqrt(var_theta)
+ CI<-1.96*sd_theta
+ 
+ if(theta-CI<=8 & 8<=theta+CI){
+   collect<-c(collect,T)
+ }
+ else{
+   collect<-c(collect,F)
+ }
+
+  
+}
+mean(collect)
+
+```
+The frequency is very close to 95%. 
+
+
+## Question 4
+**(a)**
+
+```{r}
+q4a<-function(x){
+
+m <- 10000
+u <- runif(m)
+mc <- numeric(length(x))
+for (i in 1:length(x)) {
+g <- ((u*x[i])^2)*((1-(u*x[i]))^3)*x[i]
+mc[i] <-mean(g) /factorial(2)/factorial(3)*factorial(6)
+}
+return(mc)
+  
+  
+}
+
+
+x_a <- seq(0.1, 0.9, length = 5000)
+p_a<-q4a(x_a)
+```
+
+
+
+**(b)**
+
+```{r}
+x_b<-seq(0.1,0.9,length=5000)
+z_b <- rbeta(5000,3,4)
+dim(x_b) <- length(x_b)
+p_b <- apply(x_b, MARGIN = 1, FUN = function(x_b, z_b){mean(z_b < x_b)}, z_b = z_b)
+```
+
+
+
+
+**(c)**  
+
+```{r}
+
+plot(x_a,p_a)
+plot(x_b,p_b)
+x_test<-seq(0.1,0.9,length=9)
+plot(x_test,pbeta(x_test,3,4),type="l")
+```
+
+Both estimates are very close to the theoretical values.  
+
+
+
+
+

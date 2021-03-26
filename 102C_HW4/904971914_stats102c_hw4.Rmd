@@ -1,0 +1,392 @@
+---
+title: "904971914_stats102c_hw4.Rmd"
+author: "Xiaoshu Luo"
+date: "2020/11/23"
+output: html_document
+---
+
+
+## Question 1
+**(a)**  
+```{r}
+set.seed(904971914)
+q1a<-function(n){
+ u<-runif(n)
+ y<-2*exp(-2*u)
+ gx<-mean(y)
+ gx
+}
+
+
+
+n <- 1000
+MC1 <- numeric(n)
+for(i in 1:n){
+  MC1[i] <- q1a(10000)
+  
+}
+
+```
+
+
+
+**(b)**  
+```{r}
+q1b<-function(n){
+ u<-runif(n/2)
+ v<-1-u
+ u<-c(v,u)
+ y<-2*exp(-2*u)
+ gx<- mean(y)
+ gx
+  
+}
+
+MC2 <- numeric(n)
+for(i in 1:n){
+MC2[i] <- q1b(10000)
+}
+```
+
+**(c)**  
+```{r}
+
+q1c1<-function(x){
+  exp(-2*x)
+}
+q1c2<-function(x){
+    2*exp(-2*x)
+}
+integrate(q1c2,0,1)
+
+
+q1c<-function(){
+u <- runif(10000)
+B <- q1c1(u)
+A <- q1c2(u)
+cor(A, B)
+a <- -cov(A, B) / var(B)
+
+
+
+T1 <- q1c2(u) 
+T2 <- T1 + a * (q1c1(u) - 0.4323324)
+c(mean(T1),mean(T2),var(T1),var(T2),((var(T1)-var(T2))/var(T1)))
+}
+
+
+
+MC3<- q1c()
+
+
+
+
+```
+
+**(d)**  
+
+```{r}
+q1d<-function(){
+num_rep<-10000
+num_strata<-10
+num_batch<-10
+rep_strata<-num_rep/num_strata
+theta_b <-c()
+for(i in 1:num_batch){
+  theta<-c()
+  for(j in 1:num_strata){
+    x<-runif(min=(j-1)/num_strata,max=j/num_strata,n=rep_strata)
+    y<-2*exp(-2*x)
+    theta<-c(theta,mean(y))
+    
+  }
+  theta_b<-c(theta_b,theta)
+}
+mean(theta_b)
+}
+
+
+MC4 <- numeric(n)
+for(i in 1:n){
+  MC4[i] <- q1d()
+  
+}
+
+
+
+```
+
+
+
+**(e)**  
+```{r}
+#theoretical
+integrate(q1c1,0,1)
+
+
+#original
+mean(MC1)
+var(MC1)
+
+# antithetic variate
+print("antithetical")
+mean(MC2)
+var(MC2)
+((var(MC1)-var(MC2))/var(MC1))
+#control variate 
+print("control variate")
+MC3
+
+#Stratified sampling
+print("stratified sampling")
+mean(MC4)
+var(MC4)
+((var(MC1)-var(MC4))/var(MC1))
+```
+All four estimates are very close to the theoretical value, and the varaince gets reduced.  
+
+## Question 2  
+
+**(a)** 
+
+\[
+\begin{eqnarray}
+E_\phi(g(X)W(X)) = \int g(X)*\frac {f(X)}{\phi(X)}*\phi(x) dx =\int g(X)*f(X)dx=E_f(g(X))\\
+\end{eqnarray}
+\]
+
+
+
+**(b)** 
+
+\[
+\begin{eqnarray}
+
+E_\phi(W(X))=\int W(X)\phi(X)dx=\int \frac {f(X)}{\phi(X)}*\phi(X)dx = \int f(X)dx = 1,as \space f(X)\space is \space a \space PDF.
+
+\end{eqnarray}
+\]
+
+
+
+**(c)** 
+
+\[
+\begin{eqnarray}
+
+
+\hat{\theta}=\sum_{i=1}^mg(X_i)W(X_i)/m\\
+E(\hat{\theta})=\frac 1mE_\phi(g(X_i)W(X_i))=\frac1m *m*E_\phi(g(X_1)W(X_1))= E_f(g(X))=\theta\\
+
+Var(\hat{\theta})= \frac 1mVar(g(X_i)W(X_i))=\frac 1m (E_\phi(\frac {g^2(X_i)f^2(X_i)} {\phi^2(X_i)}-E^2_\phi(g(X_1)W(X_1)))\\
+=\frac 1m (E_\phi(\frac {g^2(X_i)f^2(X_i)} {\phi^2(X_i)}-\theta^2)\\
+if \space \phi(X)=\frac {f(X)*|g(X)|}{\int f(X)|g(X)|dx},\space then \space Var(\hat{\theta}) =0
+
+\end{eqnarray}
+\]
+
+
+## Question 3 
+
+**(a)**     
+$$
+\theta = \int_C^\infty \frac {1}{\sqrt 2 \sqrt \pi}e^{-0.5*x^2}dx\\
+f(x)=1,g(x)=\frac {1}{\sqrt 2 \sqrt \pi}e^{-0.5*x^2}\\
+\phi_1(x)=0.35\\
+\phi_2(x)=e^{-x}\\
+\phi_3(x)=\frac {e^{-x}}{1-e^{-1}}
+$$
+```{r}
+q3a1<-function(x){
+  exp(-0.5*(x^2))/(sqrt(2*3.14159))
+  
+}
+
+q3a2<-function(x){
+   x-x+0.35
+  
+}
+
+q3a3<-function(x){
+  exp(-x)
+  
+}
+
+q3a4<-function(x){
+ 
+    exp(-x)/(1-exp(-1))
+}
+
+
+
+{
+curve(q3a1,ylim=c(0,1),col="red")
+curve(q3a2,add=T,type="b")
+curve(q3a3,add=T,type="l",col="green")
+curve(q3a4,add=T)
+}
+```
+
+Based on the graph, I chose e^-x as the importance function, as it domain is from 0 to infinity and is very similar in shape to g(x).  
+
+ 
+**(b)**     
+```{r}
+g <- function(x,c){
+exp(-0.5*(x^2))/(sqrt(2*3.14159)) * (x > c)
+}
+
+
+q3b<-function(c){
+is2 <- replicate(1000, expr = {
+2
+u <- runif(10000)
+x <- -log(u)
+phi <- exp(-x)
+mean(g(x,c) / phi)
+})
+is2
+}
+
+```
+
+
+
+**(c)**      
+```{r}
+
+1-pnorm(0.5)
+q3c1<-q3b(0.5)
+mean(q3c1)
+
+
+1-pnorm(1)
+q3c2<-q3b(1)
+mean(q3c2)
+
+1-pnorm(2)
+q3c3<-q3b(2)
+mean(q3c3)
+
+
+1-pnorm(3)
+q3c4<-q3b(3)
+mean(q3c4)
+
+
+```
+The results are very close to the theretical values. 
+
+
+
+## Question 4 
+
+**(a)**  
+```{r}
+E1<-function(){
+  n <- 10000
+  X <- rexp(n, rate = 2)
+  W <-exp((-X^2)*sqrt(X))*(sin(X)^2)/exp(-2*X)
+  sum(W*(X^2))/sum(W)
+
+  
+  
+}
+
+
+E2<-function(){
+  n <- 10000
+  X <- rgamma(n,shape=0.5,scale=2)
+  W<-exp((-X^2)*sqrt(X))*(sin(X)^2) / ((X^(-0.5) * exp(-0.5*X)))
+  sum(W*(X^2))/sum(W)
+  
+}
+
+
+E3<-function(){
+  n <- 10000
+  X <- rcauchy(n,location =0, scale = 2)
+  X<- X[X>0]
+  W<-exp((-X^2)*sqrt(X))*(sin(X)^2) / (  ((2*pi)^(-1))*((1+(X^2)/4)^(-1)) )
+  sum(W*(X^2))/sum(W)
+  
+  
+}
+
+```
+
+**(b)**  
+```{r}
+set.seed(904971914)
+E1()
+E2()
+E3()
+q4b<-function(x){
+  return(exp((-x^2)*sqrt(x))*(sin(x)^2))
+}
+a<-integrate(q4b,lower= 0,upper=Inf)$value
+
+q4b2<-function(x){
+  return (x^2 * q4b(x)/a)
+}
+
+integrate(q4b2,0,Inf)
+
+```
+The estimates are very close to the theoretical value.  
+
+**(c)** 
+
+```{r}
+v1<-c()
+v2<-c()
+v3<-c()
+for (i in 1:1000){
+  v1<-c(v1,E1())
+  v2<-c(v2,E2())
+  v3<-c(v3,E3())
+  
+}
+
+var(v1)
+var(v2)
+var(v3)
+
+```
+Based on the variance, the second trial distribution is most efficient as it has the lowest variance. 
+
+
+**(d)** 
+
+```{r}
+
+q4d <-rexp(10000,rate=2)
+q<-function(x){
+  exp((-x^2)*sqrt(x))*(sin(x)^2)
+}
+integrate(q,0,Inf)
+
+mean(q(q4d)/dexp(q4d,rate=2))
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

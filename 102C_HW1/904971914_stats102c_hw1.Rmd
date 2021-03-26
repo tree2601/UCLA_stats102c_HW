@@ -1,0 +1,195 @@
+---
+title: "904971914_stats102c_hw1"
+author: "Xiaoshu Luo 904971914"
+output: html_document
+---
+
+## Question 1
+Since X and Y are independent, X^2 and Y^2 are also independent:
+
+\[
+\begin{eqnarray}
+Var(XY) 
+& = & E((XY)^2)-E^2(XY)\\
+& = & E(X^2)\times E(Y^2)-E(XY)\times E(XY)\\
+& = &  (E^2(X)+Var(X)) \times (E^2(Y)+Var(Y)) - E^2(X)E^2(Y)\\
+& = &  E^2(X)\times Var(Y) + E^2(Y)\times Var(X) + Var(X) \times Var(Y) 
+\end{eqnarray}
+\]
+
+
+## Question 2
+
+\[
+\begin{eqnarray}
+
+X & \sim & Geo(0.6)\\
+P(X \leq k) & \approx & 0.9\\
+F_X(k)& \approx & 0.9\\
+1-(1-0.6)^{k+1}& \approx & 0.9\\
+k &\approx &  1.5\\
+k &=& 1\Rightarrow P(X \leq k)=0.84\\
+k&=&2\Rightarrow P(X \leq k)=0.93\\
+k &=& 2
+
+
+\end{eqnarray}
+\]
+
+## Question 3
+
+**(a)**
+Let T be the time between successive calls. 
+\[
+\begin{eqnarray}
+
+T &\sim& exp(\lambda),\lambda=6\\
+E(T) &=& 1/\lambda = 1/6
+ 
+\end{eqnarray}
+\]
+
+The average times is 1/6 minute. 
+
+**(b)**
+\[
+\begin{eqnarray}
+N_1 &\sim& Poi(\lambda),\lambda=6\\
+P(N_1 = 5) &=& \frac{6^5e^{-6}}{5!} \\
+&=& 0.1606
+
+
+\end{eqnarray}
+\]
+
+**(c)**
+\[
+\begin{eqnarray}
+P(N_1 < 5) &=& \sum_{k=0}^{4}\frac{6^ke^{-6}}{k!} \\
+P(N_1 < 5) &=& 0.2851
+
+\end{eqnarray}
+\]
+
+**(d))**
+Let T be the waiting time in seconds. 
+\[
+\begin{eqnarray}
+T&\sim& poi(\lambda'),\lambda'=6/60=0.1\\
+P(T \leq 5) &=& F_T(5)=1-{e^{-0.1 * 5}} \\
+&=&0.3935
+
+\end{eqnarray}
+\]
+
+**(e)**
+```{r q3e}
+set.seed(904971914)
+x<-rexp(n=1000,rate =0.1)
+q3e<-ecdf(x)
+
+z <-seq(0,80,0.1)
+zy <-q3e(z)
+zci<-sqrt((q3e(zy)*(1-q3e(zy)))/1000)*1.96 
+
+plot(x=z,y=zy, ylab = expression(P(X <= x)), main = "EDF with confidence interval",type='l',las = 1)
+
+U<- zy+zci
+L<-zy-zci
+lines(z,U,col='red')
+lines(z,L,col='red')
+```
+
+
+The red lines are the confidence intervals. 
+
+## Question 4
+
+**(a)**
+\[
+\begin{eqnarray}
+Y&=&F^{-1}(u)\\
+P(Y \leq x)&=& P(F^{-1}(u) \leq  x)\\
+&=& P(u \leq F(x))\\
+&=& F_U(F(x)) \\
+&=& \int _0 ^ {F(x)} 1 du \\
+&=& F_{X}(x) 
+\end{eqnarray}
+\]
+
+**(b)**
+\[
+\begin{eqnarray}
+Let \space \space Y&=&F(x),0 \leq Y\leq 1  \\
+P(Y \leq y)&=&P(F(x) \leq y)\\
+&=&P(X \leq F^{-1}(y))\\
+&=& F(F^{-1}(y))\\
+&=& y, \space y \in[0,1]
+
+\end{eqnarray}
+\]
+Therefore, Y has the same CDF as U ~ [0,1],so F(x) ~ [0,1]. 
+
+
+## Question 5 
+**(a)**
+\[
+\begin{eqnarray}
+F(x) &=&\int_{-\infty}^xf(t)dt\\
+&=& \int_{\eta}^x\lambda e^{-\lambda(t-\eta)}dt\\
+&=& - e^{\lambda\eta} (e^{-\lambda x}-e^{-\lambda \eta})\\
+&=& 1-e^{\lambda(\eta-x)}
+
+\end{eqnarray}
+\]
+
+**(b)**
+\[
+\begin{eqnarray}
+F(x) &=& u\\
+1-e^{\lambda(\eta - x)} &=& u \\
+\lambda\eta - \lambda x &=& log(1-u)\\
+x = F^{-1}(u) &=& \eta - \frac {log(1-u)} \lambda\\
+
+
+\end{eqnarray}
+\]
+
+**(c)**
+```{r q5c}
+q5c <-function(lambda,eta,n){
+#This function generates random numbers from the two-parameter exponential distribution.
+#lambda and eta are parameters and n specifies how many numbers to generate.
+#The function gives a number or a vector of numbers generated from the distribution. 
+  x <- runif(n)
+  y <- eta-(log(1-x)/lambda)
+  y
+}
+```
+
+**(d)**
+```{r q5d}
+q5d <-q5c(lambda=4,eta=1,n=10000)
+hist(q5d,prob=T)
+y<-seq(0,10,0.01)
+lines(y,4*exp(-4*(y-1)))
+```
+
+
+**(e)**
+The sample quartiles is very similar to the theoretical exponential quartiles. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
